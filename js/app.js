@@ -30,11 +30,13 @@ const giftUpdate = (e) => {
   datos[index].precio = document.querySelector("#precioModal").value;
   datos[index].imagen = document.querySelector("#imagenModal").value;
 
+  localStorage.setItem('datos', JSON.stringify(datos));
   cargarTabla();
   myModal.hide();
 };
 
 const cargarTabla = () => {
+  datos=JSON.parse(localStorage.getItem('datos'));
   cuerpoTabla.innerHTML = "";
   datos.map((item) => {
     const fila = document.createElement("tr");
@@ -81,10 +83,11 @@ window.borrarGift = (id) => {
 
   if (validar) {
     datos.splice(index, 1);
+    localStorage.setItem('datos', JSON.stringify(datos));
     cargarTabla();
   }
 };
-
+cargarDatos();
 cargarTabla();
 
 document.querySelector("#formGift").addEventListener("submit", agregarGift);
